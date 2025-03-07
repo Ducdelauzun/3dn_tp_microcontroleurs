@@ -1,4 +1,6 @@
-../Core/Src/main.c:58:5:__io_putchar	1
-../Core/Src/main.c:69:5:main	1
-../Core/Src/main.c:118:6:SystemClock_Config	4
-../Core/Src/main.c:171:6:Error_Handler	1
+../Core/Src/main.c:63:5:__io_putchar	1
+../Core/Src/main.c:69:6:MCP23S17_WriteRegister	1
+../Core/Src/main.c:76:6:MCP23S17_Init	1
+../Core/Src/main.c:87:5:main	1
+../Core/Src/main.c:144:6:SystemClock_Config	4
+../Core/Src/main.c:197:6:Error_Handler	1

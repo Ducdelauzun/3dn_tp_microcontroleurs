@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "spi.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -33,7 +34,11 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define MCP23S17_OPCODE_WRITE  0x40  // Opcode pour écrire (A2:A0 = 0)
+#define MCP23S17_IODIRA        0x00  // Registre de direction pour GPA
+#define MCP23S17_IODIRB        0x01  // Registre de direction pour GPB
+#define MCP23S17_GPIOA         0x12  // Registre de sortie pour GPA
+#define MCP23S17_GPIOB         0x13  // Registre de sortie pour GPB
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -59,6 +64,19 @@ int __io_putchar(int chr)
 {
 	HAL_UART_Transmit(&huart2, (uint8_t *)&chr, 1, HAL_MAX_DELAY);
 	return chr;
+}
+
+void MCP23S17_WriteRegister(uint8_t reg, uint8_t value) {
+    uint8_t data[3] = {MCP23S17_OPCODE_WRITE, reg, value};
+    HAL_GPIO_WritePin(SPI3_nCS_GPIO_Port, SPI3_nCS_Pin, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi3, data, 3, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(SPI3_nCS_GPIO_Port, SPI3_nCS_Pin, GPIO_PIN_SET);
+}
+
+void MCP23S17_Init() {
+    // Configurer tous les pins de GPA et GPB en sortie
+    MCP23S17_WriteRegister(MCP23S17_IODIRA, 0x00);
+    MCP23S17_WriteRegister(MCP23S17_IODIRB, 0x00);
 }
 /* USER CODE END 0 */
 
@@ -92,6 +110,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
+  MX_SPI3_Init();
+  MCP23S17_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -103,6 +123,13 @@ int main(void)
 	  HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	  HAL_Delay(100);
 	  printf("Test printf\r\n");
+
+	  MCP23S17_WriteRegister(MCP23S17_GPIOA, 0xFF);  // Allumer toutes les LEDs sur GPA
+	  MCP23S17_WriteRegister(MCP23S17_GPIOB, 0xFF);  // Allumer toutes les LEDs sur GPB
+	  HAL_Delay(500);
+	  MCP23S17_WriteRegister(MCP23S17_GPIOA, 0x00);  // Éteindre toutes les LEDs sur GPA
+	  MCP23S17_WriteRegister(MCP23S17_GPIOB, 0x00);  // Éteindre toutes les LEDs sur GPB
+	  HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
