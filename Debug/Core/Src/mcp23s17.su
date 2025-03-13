@@ -1,0 +1,5 @@
+../Core/Src/mcp23s17.c:7:13:MCP23S17_WriteRegister	24	static
+../Core/Src/mcp23s17.c:15:6:MCP23S17_Init	16	static
+../Core/Src/mcp23s17.c:21:6:MCP23S17_SetLED	16	static
+../Core/Src/mcp23s17.c:33:6:MCP23S17_ClearAllLEDs	16	static
+../Core/Src/mcp23s17.c:38:6:MCP23S17_Chenillard	24	static
