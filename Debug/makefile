@@ -60,8 +60,8 @@ all: main-build
 main-build: 3DN_tp_microcontroleurs.elf secondary-outputs
 
 # Tool invocations
-3DN_tp_microcontroleurs.elf 3DN_tp_microcontroleurs.map: $(OBJS) $(USER_OBJS) C:\Users\Gad\Documents\cours_inge_3D\systemes_a_microcontroleurs\tp\3DN_tp_microcontroleurs\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "3DN_tp_microcontroleurs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Gad\Documents\cours_inge_3D\systemes_a_microcontroleurs\tp\3DN_tp_microcontroleurs\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="3DN_tp_microcontroleurs.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+3DN_tp_microcontroleurs.elf 3DN_tp_microcontroleurs.map: $(OBJS) $(USER_OBJS) C:\Users\HP\Documents\cours_inge_3D\systemes_a_microcontroleurs\tp\3DN_tp_microcontroleurs\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "3DN_tp_microcontroleurs.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\HP\Documents\cours_inge_3D\systemes_a_microcontroleurs\tp\3DN_tp_microcontroleurs\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="3DN_tp_microcontroleurs.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
